@@ -1,0 +1,40 @@
+@font-face {
+    font-family: "ibm3270"; /* Имя шрифта */
+    src: url(fonts/Narrow.ttf); /* Путь к файлу со шрифтом */
+   }
+
+@font-face {
+    font-family: "apple2"; /* Имя шрифта */
+    src: url(fonts/AppleII.ttf); /* Путь к файлу со шрифтом */
+   }
+
+.page{
+    background-color: black;
+    font-family: "ibm3270";
+    font-size: 40px;
+    color: green;
+}
+
+.header{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: solid 3px green;
+}
+
+.button{
+    color: green;
+    font-family: "ibm3270";
+    background-color: black;
+    border: none;
+    font-size: 50px;
+    margin-top: 50px;
+    border: solid green 3px;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
