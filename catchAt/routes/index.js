@@ -4,7 +4,7 @@ const passport = require('passport')
 
 
 /* GET home page. */
-router.get('/',passport.authenticate('jwt', {session: false}), function(req, res, next) {
+router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
