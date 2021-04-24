@@ -7,8 +7,10 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
+const corsMiddleware = require('./middleware/cors.middleware')
 const app = express();
 
+app.use(corsMiddleware)
 app.use(bodyParser.urlencoded({
   extended: true
 }))

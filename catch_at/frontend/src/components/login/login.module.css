@@ -1,0 +1,106 @@
+.header {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: green solid 2px;
+}
+
+
+.button {
+    color: green;
+    font-family: "ibm3270";
+    background-color: black;
+    border: none;
+    font-size: 50px;
+    margin-top: 20px;
+    outline: none;
+}
+
+.button:hover{
+    color: black;
+    background-color: green;
+}
+
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.field {
+    width: 50%;
+    height: 60px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.input {
+    background-color: black;
+    width: 40%;
+    color: green;
+    height: 40px;
+    border: green solid 1px;
+}
+
+
+.input:valid {
+    background-color: black;
+    border: solid green 2px;
+    font-size: 20px;
+    padding-left: 10px;
+}
+
+.input:hover {
+    box-shadow: 0px 0px 30px #2E8B57;
+}
+
+
+::placeholder {
+    color: green;
+    font-size: 20px;
+
+}
+
+.footer {
+    height: 100px;
+    background-color: black;
+}
+
+.logo {
+    width: 200px;
+    position: absolute;
+    right: 100px;
+    top: 150px;
+}
+
+
+.loginButton {
+    margin-top: 60px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 40px;
+    background-color: black;
+    color: green;
+    border: solid green 1px;
+    border-radius: 10%;
+}
+
+.loginButton:hover{
+    background-color: green;
+    color: black;
+}
+
+.forgetPassword {
+    margin-top: 50px;
+    background-color: black;
+    color: green;
+    font-family: 'Times New Roman', Times, serif;
+    border: none;
+    border-bottom: green solid 1px;
+    font-size: 20px;
+    outline: none;
+}
+
+.forgetPassword:hover{
+    border: green solid 1px;
+}

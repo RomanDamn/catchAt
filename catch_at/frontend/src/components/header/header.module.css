@@ -1,0 +1,22 @@
+.header {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: green solid 2px;
+}
+
+.button {
+    color: green;
+    font-family: "ibm3270";
+    background-color: black;
+    border: none;
+    font-size: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    outline: none;
+
+}
+
+.button:hover{
+    color: black;
+    background-color: green;
+}
