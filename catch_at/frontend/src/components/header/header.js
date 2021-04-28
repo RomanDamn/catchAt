@@ -10,9 +10,12 @@ const Header = (props) => {
     return (
         <header className={s.header}>
             <button className={s.button}>about app</button>
+            
+            {!notauth && 
             <Link to={props.link}>
-            {!notauth && <button className={s.button}>{props.buttonTwoName}</button>}
-            </Link>     
+                <button className={s.button}>{props.buttonTwoName}</button>
+            </Link> }
+                
         </header>
     )
 }

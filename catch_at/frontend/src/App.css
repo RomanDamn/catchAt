@@ -4,3 +4,9 @@
     font-size: 40px;
     color: green;
 }
+
+@media screen and(max-width: 1200px){
+    .page{
+        width: 100%;
+    }
+}

@@ -62,7 +62,9 @@ module.exports.register = async function (req, res) {
                 password: bcrypt.hashSync(password, salt),
                 key: bcrypt.hashSync(key, salt)
             })
-            return res.json(user)
+            return res.status(200).json({
+                message: "User successfully created"
+            })
         } catch (err) {
             console.log(err)
             return res.status(500).json(err)
