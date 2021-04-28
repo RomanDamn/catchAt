@@ -23,7 +23,7 @@ const Content = () =>{
 const NotAuth = () =>{
     return (
         <div>
-        <Header buttonOneName = "about app"/>
+        <Header/>
         <Content />        
         </div>
     )
