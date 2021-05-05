@@ -136,29 +136,37 @@
     position: absolute;
     top: 215px;
     font-size: 20px;
-    color: red;
+    color: rgba(255, 0, 0, 0.466);
 }
 
 .error_pass{
     position: absolute;
     top: 285px;
     font-size: 20px;
-    color: red;
+    color: rgba(255, 0, 0, 0.466);
 }
 
 .error_confirm_pass{
     position: absolute;
     top: 355px;
     font-size: 20px;
-    color: red;
+    color: rgba(255, 0, 0, 0.466);
 }
 
 .error_key{
     position: absolute;
     top: 425px;
     font-size: 20px;
-    color: red;
+    color: rgba(255, 0, 0, 0.466);
 }
+
+.error{
+    position: absolute;
+    top: 205px;
+    font-size: 20px;
+    color: rgba(255, 0, 0, 0.466);
+}
+
 
 
 

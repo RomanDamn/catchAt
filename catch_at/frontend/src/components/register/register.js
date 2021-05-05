@@ -1,6 +1,6 @@
 import s from "./register.module.css"
 import Header from "../header/header"
-import { registration } from "../../actions/user"
+import { registration } from "../../actions/register"
 import { Formik } from "formik"
 import * as yup from "yup"
 import { Redirect } from "react-router-dom"
@@ -33,7 +33,7 @@ const Content = () =>{
                  handleBlur, isValid, handleSubmit, dirty, status}) =>(
                     <div className= {s.content} >
                 
-                 {status && status.error && <p className={s.error_username}>{status.error}</p>}
+                 {status && status.error && <p className={s.error}>{status.error}</p>}
                  {status && status.ok && <Redirect to="login" />}
                         <h1 className={s.registration}> Registration</h1>
                         <p>
