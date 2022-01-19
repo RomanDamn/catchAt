@@ -1,10 +1,10 @@
 import React from "react" ;
 import "./App.css";
-import NotAuth from "./components/notAuthPage/notAuth"
+import NotAuth from "./components/pages/mainNotAuthPage/notAuth"
 import {Route, BrowserRouter} from "react-router-dom";
-import Register from "./components/register/register";
-import Login from "./components/login/login";
-import Footer from "./components/footer/footer";
+import Register from "./components/pages/register/register";
+import Login from "./components/pages/login/login";
+import Footer from "./components/shared/footer/footer";
 
 
 function App() {

@@ -1,5 +1,5 @@
 import axios from "axios"
-import s from "../components/login/login.module.css"
+import s from "../components/pages/login/login.module.css"
 
 export const login = async (username, password, setError) =>{
     try{
