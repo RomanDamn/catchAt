@@ -29,7 +29,7 @@
 }
 
 .regButton {
-    background: url("./reg_button2.png") no-repeat;
+    background: url("../../../assets/images/reg_button2.png") no-repeat;
     background-size: 140px 80px;
     height: 80px;
     width: 140px;
@@ -39,7 +39,7 @@
 }
 
 .disButton {
-    background: url("./dis_button.png") no-repeat;
+    background: url("../../../assets/images/dis_button.png") no-repeat;
     background-size: 140px 80px;
     height: 80px;
     width: 140px;
@@ -48,7 +48,7 @@
 }
 
 .regButton:hover {
-    background-image: url("./reg_button2-2.png");
+    background-image: url("../../../assets/images/reg_button2-2.png");
     height: 80px;
     width: 140px;
     transition: 2s linear;

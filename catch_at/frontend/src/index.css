@@ -1,14 +1,14 @@
 @font-face {
   font-family: "ibm3270";
   /* Имя шрифта */
-  src: url(./fonts/Narrow.ttf);
+  src: url(./assets/fonts/Narrow.ttf);
   /* Путь к файлу со шрифтом */
 }
 
 @font-face {
   font-family: "apple2";
   /* Имя шрифта */
-  src: url(fonts/AppleII.ttf);
+  src: url(./assets/fonts/AppleII.ttf);
   /* Путь к файлу со шрифтом */
 }
 

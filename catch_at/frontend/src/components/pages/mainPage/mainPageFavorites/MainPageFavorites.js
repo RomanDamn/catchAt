@@ -1,16 +1,9 @@
-import s from "./mainPage.module.css";
+import s from "./mainPageFavorites.module.css";
 import star from "../../../assets/images/icons/star-5-128.png"
 
-const mainPage = () => {
+const mainPageFavorites = () => {
     return (
         <div className={s.page}>
-            <div className={s.header}>
-                <div className={s.header__element}> John</div>
-                <div className={s.header__element}> Eric</div>
-                <div className={s.header__element}> Money</div>
-                <div className={s.header__element}> Cash</div>
-                <div className={s.header__element}> ==&gt;</div>
-            </div>
             <div className={s.content}>
                 <div className={s.sidebar}>
                     <div className={s.sidebar__el}>ALL</div>
@@ -43,11 +36,6 @@ const mainPage = () => {
                         <div  className={s.mainblock__messagesCount}>35</div>
                         <div  className={s.mainblock__star}></div>
                     </div>
-                    <div  className={s.mainblock__el}>
-                        <div  className={s.mainblock__text}>Anri Rey</div>
-                        <div  className={s.mainblock__messagesCount}>99</div>
-                        <div  className={s.mainblock__star}></div>
-                    </div>
                 </div>
             </div>
             <div className={s.footer}>
@@ -57,4 +45,4 @@ const mainPage = () => {
     )
 }
 
-export default mainPage;
+export default mainPageFavorites;

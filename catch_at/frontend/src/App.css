@@ -3,6 +3,7 @@
     font-family: "ibm3270";
     font-size: 40px;
     color: green;
+    height: 100vh;
 }
 
 @media screen and(max-width: 1200px){

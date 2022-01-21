@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "./logo.png";
+import logo from "../../../assets/images/logo.png";
 import s from "./notAuth.module.css";
 import {Link} from "react-router-dom";
 import Header from "../../shared/header/header";

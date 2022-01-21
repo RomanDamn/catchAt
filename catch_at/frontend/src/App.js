@@ -5,6 +5,7 @@ import {Route, BrowserRouter} from "react-router-dom";
 import Register from "./components/pages/register/register";
 import Login from "./components/pages/login/login";
 import Footer from "./components/shared/footer/footer";
+import MainPage from "./components/pages/mainPage/mainPage";
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
       <Route component={NotAuth} path="/notAuth" />
       <Route component={Login} path="/login" />
       <Route component={Register} path="/register" />
+      <Route component={MainPage} path=""/>
       <Footer />
     </div>
     </BrowserRouter>
