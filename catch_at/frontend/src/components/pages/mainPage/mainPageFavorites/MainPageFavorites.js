@@ -1,9 +1,8 @@
 import s from "./mainPageFavorites.module.css";
-import star from "../../../assets/images/icons/star-5-128.png"
+import star from "../../../../assets/images/icons/star-5-128.png"
 
 const mainPageFavorites = () => {
     return (
-        <div className={s.page}>
             <div className={s.content}>
                 <div className={s.sidebar}>
                     <div className={s.sidebar__el}>ALL</div>
@@ -37,9 +36,7 @@ const mainPageFavorites = () => {
                         <div  className={s.mainblock__star}></div>
                     </div>
                 </div>
-            </div>
             <div className={s.footer}>
-
             </div>
         </div>
     )

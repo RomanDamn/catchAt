@@ -129,14 +129,14 @@
 
 .mainblock__star{
     margin-right: 2%;
-    background-image: url("../../../assets/images/icons/green-star-icon-symbol-plant-text-meal-transparent-png-1881346.png");
+    background-image: url("../../../../assets/images/icons/green-star-icon-symbol-plant-text-meal-transparent-png-1881346.png");
     background-size: 100%;
     width: 40px;
     height: 40px;
 }
 
 .mainblock__star:hover{
-    background-image: url("../../../assets/images/icons/star-5-128.png");
+    background-image: url("../../../../assets/images/icons/star-5-128.png");
     background-size: 100%;
 }
 
