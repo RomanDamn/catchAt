@@ -7,20 +7,6 @@
 }
 
 
-.header {
-    display: flex;
-    justify-content: space-around;
-    border-bottom: green solid 2px;
-    padding: 1%;
-}
-
-.header__element{
-    border: solid green 2px;
-    width: 10%;
-    text-align: center;
-    border-radius: 8%;
-}
-
 .button {
     color: green;
     font-family: "ibm3270";
@@ -138,10 +124,5 @@
 .mainblock__star:hover{
     background-image: url("../../../../assets/images/icons/star-5-128.png");
     background-size: 100%;
-}
-
-.footer {
-    height: 150px;
-    background-color: black;
 }
 

@@ -1,0 +1,126 @@
+.page {
+    background-color: black;
+    font-family: "ibm3270";
+    font-size: 40px;
+    color: green;
+    min-height: 100vh;
+}
+
+.button {
+    color: green;
+    font-family: "ibm3270";
+    background-color: black;
+    border: none;
+    font-size: 50px;
+    margin-top: 20px;
+    outline: none;
+
+}
+
+.button:hover{
+    color: black;
+    background-color: green;
+}
+
+
+.logo {
+    width: 200px;
+    position: absolute;
+    right: 100px;
+    top: 150px;
+}
+
+
+.version {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 3%;
+    height: 90vh;
+}
+
+.sidebar{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 20%;
+}
+
+.sidebar__el{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10%;
+    width: 100px;
+    height: 50px;
+    border: 2px solid green;
+    border-left: none;
+}
+
+.sidebar__el:hover{
+    width: 120px;
+}
+
+.sidebar__star{
+    width: 40%;
+    height: auto;
+}
+
+.mainblock{
+    border: 2px green solid;
+    width: 80%;
+    height: 90%;
+    margin-right: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mainblock__el{
+    display: flex;
+    align-items: center;
+    width: 80%;
+    margin: 2% 0 2% 0;
+    border: 2px solid green;
+    border-radius: 20%;
+}
+
+
+.mainblock__text{
+    text-align: center;
+    width: 60%;
+    padding-right: 20%;
+}
+
+.mainblock__messagesCount{
+    border: rgba(128, 255, 0, 0.788) solid 2px;
+    font-family: "apple2";
+    color: rgba(128, 255, 0, 0.788);
+    border-radius: 50%;
+    width: 3%;
+    height: 60%;
+    font-size: 15px;
+    margin-right: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.mainblock__star{
+    margin-right: 2%;
+    background-image: url("../../../../assets/images/icons/green-star-icon-symbol-plant-text-meal-transparent-png-1881346.png");
+    background-size: 100%;
+    width: 40px;
+    height: 40px;
+}
+
+.mainblock__star:hover{
+    background-image: url("../../../../assets/images/icons/star-5-128.png");
+    background-size: 100%;
+}

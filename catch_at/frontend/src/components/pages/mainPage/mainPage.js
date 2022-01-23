@@ -18,9 +18,10 @@ const mainPage = () => {
                     <div className={s.header__element}> Cash</div>
                     <div className={s.header__element}> ==&gt;</div>
                 </div>
-                <Route component={Favorites} path="/Favorites" />
-                <Route component={Messages} path="/Messages" />
-                <Route component={Profile} path="/Profile" />
+                    <Route component={Favorites} path="/Favorites" />
+                    <Route component={Messages} path="/Messages" />
+                    <Route component={Profile} path="/Profile" />
+                <div className={s.content}>
                 <div className={s.sidebar}>
                     <div className={s.sidebar__el}>ALL</div>
                     <div className={s.sidebar__el}>
@@ -60,7 +61,7 @@ const mainPage = () => {
                 </div>
             </div>
             <div className={s.footer}>
-
+            </div>
             </div>
         </BrowserRouter>
     )
