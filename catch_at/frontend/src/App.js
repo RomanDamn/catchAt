@@ -15,7 +15,7 @@ function App() {
       <Route component={NotAuth} path="/notAuth" />
       <Route component={Login} path="/login" />
       <Route component={Register} path="/register" />
-      <Route component={MainPage} path=""/>
+      <Route component={MainPage} exact path="/"/>
       <Footer />
     </div>
     </BrowserRouter>

@@ -3,17 +3,6 @@ import star from "../../../../assets/images/icons/star-5-128.png"
 
 const mainPageFavorites = () => {
     return (
-            <div className={s.content}>
-                <div className={s.sidebar}>
-                    <div className={s.sidebar__el}>ALL</div>
-                    <div className={s.sidebar__el}>
-                        <img className={s.sidebar__star}
-                            src={star}
-                            alt="Star"/>
-                    </div>
-                    <div className={s.sidebar__el}>MES</div>
-                    <div className={s.sidebar__el}>ME</div>
-                </div>
                 <div className={s.mainblock}>
                     <div  className={s.mainblock__el}>
                         <div  className={s.mainblock__text}>KFC</div>
@@ -36,9 +25,6 @@ const mainPageFavorites = () => {
                         <div  className={s.mainblock__star}></div>
                     </div>
                 </div>
-            <div className={s.footer}>
-            </div>
-        </div>
     )
 }
 
