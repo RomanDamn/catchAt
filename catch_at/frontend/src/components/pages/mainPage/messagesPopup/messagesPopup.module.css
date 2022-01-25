@@ -1,0 +1,101 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: rgb(6, 177, 6) solid 2px;
+    padding: 1%;
+}
+
+.header__element{
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8%;
+    font-size: 50%;
+    margin-right: 5%;
+    background: black;
+    color: green;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+.header__element:hover{
+    color:black;
+    background-color: green;
+}
+
+.content{
+    background-color: black;
+    position: absolute;
+    left: 25%;
+    top: 25%;
+    width: 100vh;
+    border: solid 2px rgb(6, 177, 6);
+    border-radius: 5%;
+    box-shadow: -1px 1px 5px 9px green;
+    transform: scale(0);
+}
+
+.active{
+    transform:scale(1);
+}
+
+.messages{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.messages__message{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 30%;
+    height: auto;
+    margin: 1% 70% 1% 0;
+    padding: 2% 0 2% 0;
+    color: green;
+    border: rgb(6, 177, 6) solid 1px;
+    border-left: none;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.messages__message_your{
+    margin-left: 140%;
+    border-right: none;
+    border-left: 1px solid green;
+}
+
+.messages__writingArea{
+    width: 100%;
+    height: 40px;
+    border-top: solid rgb(6, 177, 6) 1px;
+    margin-bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.messages__text{
+    display: flex;
+    flex-wrap: wrap;
+    width: 60%;
+    margin-left: 3%;
+}
+
+.messages__sendText{
+    margin-left: 2%;
+    font-size: 60%;
+}
+
+.messages__sendButton{
+    margin-right: 2%;
+}
+
+.messages__del{
+    margin-right: 2%;
+}

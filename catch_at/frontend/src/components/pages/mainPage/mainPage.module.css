@@ -60,10 +60,11 @@
     border: 2px solid green;
     border-left: none;
     text-decoration: none;
+    color: green;
 }
 
 .activeButton{
-    width: 120px;
+    width: 130px;
 }
 
 .sidebar__star{

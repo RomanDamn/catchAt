@@ -14,10 +14,10 @@ export default function isActiveButtonReducer(state=defaultState, action){
                 id: action.payload.id,
                 isActive: true
             }
-        case MAKE_DISACTIVE:
-            return {
-                isActive: false
-            }
+        // case MAKE_DISACTIVE:
+        //     return {
+        //         isActive: false
+        //     }
         default:
             return state
     }
