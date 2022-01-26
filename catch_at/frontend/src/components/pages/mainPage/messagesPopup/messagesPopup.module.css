@@ -1,6 +1,6 @@
 .header {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     border-bottom: rgb(6, 177, 6) solid 3px;
     padding: 1%;
 }
@@ -91,10 +91,17 @@
 .messages__sendText{
     margin-left: 5%;
     font-size: 60%;
+    background-color: black;
+    width: 80%;
+    color: green;
+    outline: none;
+    border: none;
+    
 }
 
 .messages__sendButton{
     margin-right: 2%;
+    cursor: pointer;
 }
 
 .messages__del{

@@ -1,0 +1,33 @@
+.messages__message{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 30%;
+    height: auto;
+    margin: 1% 70% 1% 0;
+    padding: 2% 0 2% 0;
+    color: green;
+    border: rgb(6, 177, 6) solid 2px;
+    border-radius: 10%;
+    border-left: none;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.messages__message_your{
+    margin-left: 140%;
+    border-right: none;
+    border-left: 1px solid green;
+}
+
+.messages__del{
+    margin-right: 2%;
+}
+
+.messages__text{
+    display: flex;
+    flex-wrap: wrap;
+    width: 60%;
+    margin-left: 3%;
+}
