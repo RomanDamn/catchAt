@@ -1,9 +1,8 @@
 import s from "./messagesPopup.module.css";
 import { css } from "@emotion/css"
 import { w3cwebsocket } from "websocket"
-import { useState } from "react";
+import { useState, useRef } from "react";
 import MessageElement from "./messageElement/MessageElement";
-import ScrollToBottom from 'react-scroll-to-bottom';
 
 const client = new w3cwebsocket('ws://127.0.0.1:9000');
 
@@ -11,7 +10,7 @@ const MessagesPopup = (props) => {
     const [writingUser, setWritingUser] = useState("")
     const [message, setMessage] = useState("")
     const [messages, setMessages] = useState([]);
-
+    const chatBarScroll = useRef();
 
 
     //Handle Enter Button in input area
@@ -42,15 +41,13 @@ const MessagesPopup = (props) => {
     }
 
     client.onopen();
+    const scrollToBottom = () => {
+        console.log(chatBarScroll.current, "= chatbar")
+        console.log(chatBarScroll.current.scrollHeight, "= scrollHeight")
+        chatBarScroll.current.scrollTop = chatBarScroll.current.scrollHeight;
+        console.log(chatBarScroll.current.scrollTop, "= clientTop")
+    }
 
-
-    const mes = css`
-    height: 100%;
-    width: 100%;
-    mes::-webkit-scrollbar {
-        width: 0;               /* width of the entire scrollbar */
-      }
-    `
     return (
         <div className={` ${s.content} ${props.active ? s.active : ""}`} >
             <div className={s.header}>
@@ -58,8 +55,7 @@ const MessagesPopup = (props) => {
                 <div className={s.header__element}> DEL</div>
                 <button className={s.header__element} onClick={() => props.setActive(false)}> X</button>
             </div>
-        <div className={s.messages}>
-        <ScrollToBottom className={mes}>
+            <div ref={chatBarScroll} className={s.messages}>
                 <div className={s.messages__message}>
                     <div className={s.messages__text}>How r u boooooooooooooooooooy?</div>
                     <div className={s.messages__del}>DEL</div>
@@ -81,9 +77,8 @@ const MessagesPopup = (props) => {
                     <div className={s.messages__del}>DEL</div>
                 </div>
                 {messages && messages.map(mes => <MessageElement key={mes} messages={mes} />)}
-                </ScrollToBottom >
-                </div>
-            
+            </div>
+
             <div className={s.messages__writingArea}>
                 <input value={message} className={s.messages__sendText}
                     onChange={e => setMessage(e.target.value)}
@@ -95,7 +90,7 @@ const MessagesPopup = (props) => {
                         user: writingUser,
                     })
                     { message && client.send(data); }
-                    // client.send(data)
+                    scrollToBottom()
                 }}>{'>'} </div>
             </div>
         </div>

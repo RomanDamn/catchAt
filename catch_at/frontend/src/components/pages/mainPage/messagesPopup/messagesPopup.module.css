@@ -55,11 +55,11 @@
 
 
 .messages::-webkit-scrollbar {
-    width: 0;               /* width of the entire scrollbar */
+    width: 10px;               /* width of the entire scrollbar */
   }
   
 .messages::-webkit-scrollbar-track {
-    background: black;
+    background: green;
     border-radius: 20%;        /* color of the tracking area */
   }
   
@@ -88,7 +88,7 @@
 }
 
 .messages__message_your{
-    margin-left: 69%;
+    margin-left: 140%;
     border-right: none;
     border-left: 1px solid green;
 }
