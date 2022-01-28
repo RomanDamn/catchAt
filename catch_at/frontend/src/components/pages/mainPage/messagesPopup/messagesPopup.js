@@ -1,29 +1,35 @@
 import s from "./messagesPopup.module.css";
+import { css } from "@emotion/css"
 import { w3cwebsocket } from "websocket"
 import { useState } from "react";
 import MessageElement from "./messageElement/MessageElement";
+import ScrollToBottom from 'react-scroll-to-bottom';
 
 const client = new w3cwebsocket('ws://127.0.0.1:9000');
 
 const MessagesPopup = (props) => {
-
-    const [messages , setMessages] = useState([]);
+    const [writingUser, setWritingUser] = useState("")
     const [message, setMessage] = useState("")
+    const [messages, setMessages] = useState([]);
 
-//Handle Enter Button in input area
+
+
+    //Handle Enter Button in input area
     const data = JSON.stringify({
         type: "message",
-        msg: message
+        msg: message,
+        user: writingUser
     })
     const handleKeyDown = (event) => {
-        if (event.key === 'Enter' && data[data.length - 1].msg) {
-          client.send(data)
+        if (event.key === 'Enter' && message) { //&& data[data.length - 1].msg) {
+            client.send(data)
         }
     }
 
 
-    console.log(messages[0] + "+++++++++++++")
+    console.log(messages + "-messages")
     console.log(message + "----Message")
+    console.log(writingUser, " Writing user")
 
     client.onopen = () => {
         console.log("WebSocket Client COnnected");
@@ -32,18 +38,28 @@ const MessagesPopup = (props) => {
     client.onmessage = function (event) {
         const data = JSON.parse(event.data)
         console.log("event.data =  ", event.data, data.msg);
-        setMessages([...messages, data.msg]);
+        setMessages([...messages, { msg: message, user: writingUser }]);
     }
 
     client.onopen();
+
+
+    const mes = css`
+    height: 100%;
+    width: 100%;
+    mes::-webkit-scrollbar {
+        width: 0;               /* width of the entire scrollbar */
+      }
+    `
     return (
         <div className={` ${s.content} ${props.active ? s.active : ""}`} >
             <div className={s.header}>
-                <div className={s.header__element}>Weed Farm</div>
+                <input value={writingUser} className={s.header__element} onChange={e => setWritingUser(e.target.value)} />
                 <div className={s.header__element}> DEL</div>
                 <button className={s.header__element} onClick={() => props.setActive(false)}> X</button>
             </div>
-            <div className={s.messages}>
+        <div className={s.messages}>
+        <ScrollToBottom className={mes}>
                 <div className={s.messages__message}>
                     <div className={s.messages__text}>How r u boooooooooooooooooooy?</div>
                     <div className={s.messages__del}>DEL</div>
@@ -64,19 +80,22 @@ const MessagesPopup = (props) => {
                     <div className={s.messages__text}>I knew, I would be like this</div>
                     <div className={s.messages__del}>DEL</div>
                 </div>
-                {messages.map(mes =><MessageElement messages={mes}/> )}
-            </div>
+                {messages && messages.map(mes => <MessageElement key={mes} messages={mes} />)}
+                </ScrollToBottom >
+                </div>
+            
             <div className={s.messages__writingArea}>
-                <input value={message} className={s.messages__sendText} 
+                <input value={message} className={s.messages__sendText}
                     onChange={e => setMessage(e.target.value)}
                     onKeyDown={handleKeyDown} />
                 <div className={s.messages__sendButton} onClick={() => {
                     const data = JSON.stringify({
                         type: "message",
                         msg: message,
-                        user: "Roman"
+                        user: writingUser,
                     })
-                    {data[data.length - 1].msg && client.send(data);}
+                    { message && client.send(data); }
+                    // client.send(data)
                 }}>{'>'} </div>
             </div>
         </div>
