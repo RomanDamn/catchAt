@@ -34,19 +34,20 @@ const MessagesPopup = (props) => {
         console.log("WebSocket Client COnnected");
     };
 
-    client.onmessage = function (event) {
-        const data = JSON.parse(event.data)
-        console.log("event.data =  ", event.data, data.msg);
-        setMessages([...messages, { msg: message, user: writingUser }]);
-    }
-
-    client.onopen();
     const scrollToBottom = () => {
         console.log(chatBarScroll.current, "= chatbar")
         console.log(chatBarScroll.current.scrollHeight, "= scrollHeight")
         chatBarScroll.current.scrollTop = chatBarScroll.current.scrollHeight;
-        console.log(chatBarScroll.current.scrollTop, "= clientTop")
     }
+
+    client.onmessage = function (event) {
+        const data = JSON.parse(event.data)
+        console.log("event.data =  ", event.data, data.msg);
+        setMessages([...messages, { msg: message, user: writingUser }]);
+        scrollToBottom()
+    }
+
+    client.onopen();
 
     return (
         <div className={` ${s.content} ${props.active ? s.active : ""}`} >
@@ -90,7 +91,6 @@ const MessagesPopup = (props) => {
                         user: writingUser,
                     })
                     { message && client.send(data); }
-                    scrollToBottom()
                 }}>{'>'} </div>
             </div>
         </div>
