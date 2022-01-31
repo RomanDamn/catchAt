@@ -8,9 +8,9 @@ const AllUsers = (props) => {
     useEffect(() => {
         fetch('http://localhost:8000/api/users/all').then(res => res.json())
             .then(data => {
-                const users = data //Ссылки на данные конкретных объектов
-                const allUsers = users.map(user => user.username)
-                setUsers(allUsers)
+                const users = data ;
+                const allUsers = users.map(user => user.username);
+                setUsers(allUsers);
             })
             
             }, []);
@@ -19,7 +19,13 @@ const AllUsers = (props) => {
 
         return (
             <div className={s.mainblock}>
+                {users.map(el =>
                 <div className={s.mainblock__el} onClick={() => props.setActive(true)}>
+                    <div className={s.mainblock__text}>{el}</div>
+                    <div className={s.mainblock__messagesCount}>99</div>
+                    <div className={s.mainblock__star}></div>
+                </div>  )}
+                {/* <div className={s.mainblock__el} onClick={() => props.setActive(true)}>
                     <div className={s.mainblock__text}>KFC</div>
                     <div className={s.mainblock__messagesCount}>99</div>
                     <div className={s.mainblock__star}></div>
@@ -43,7 +49,7 @@ const AllUsers = (props) => {
                     <div className={s.mainblock__text}>Anri Rey</div>
                     <div className={s.mainblock__messagesCount}>99</div>
                     <div className={s.mainblock__star}></div>
-                </div>
+                </div> */}
             </div>
         )
     }
