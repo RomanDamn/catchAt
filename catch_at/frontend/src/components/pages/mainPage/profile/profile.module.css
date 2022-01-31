@@ -1,18 +1,35 @@
-.mainblock{
+.profile{
     border: 2px green solid;
     width: 80%;
     height: 90%;
     margin-right: 2%;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: center;
 }
 
-.mainblock__el{
+.profile__content{
     display: flex;
+    flex-direction: column;
     align-items: center;
-    width: 80%;
-    margin: 2% 0 2% 0;
-    border: 2px solid green;
-    border-radius: 20%;
+    justify-content: space-around;
+    height: 80%;
+}
+
+.profile__image{
+    width: 70%;
+    height: 30%;
+    border: green solid 3px;
+    background: url("../../../../assets/images/green_heart.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.profile__updateButton{
+    margin-bottom: 50%;
+}
+
+.profile__exitButton{
+    color: rgba(255, 0, 0, 0.329);
 }

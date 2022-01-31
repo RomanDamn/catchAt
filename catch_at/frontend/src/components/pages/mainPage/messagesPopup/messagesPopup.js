@@ -1,7 +1,7 @@
 import s from "./messagesPopup.module.css";
 import { css } from "@emotion/css"
 import { w3cwebsocket } from "websocket"
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import MessageElement from "./messageElement/MessageElement";
 
 const client = new w3cwebsocket('ws://127.0.0.1:9000');
@@ -24,7 +24,6 @@ const MessagesPopup = (props) => {
             client.send(data)
         }
     }
-
 
     console.log(messages + "-messages")
     console.log(message + "----Message")
