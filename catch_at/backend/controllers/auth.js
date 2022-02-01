@@ -11,7 +11,8 @@ module.exports.login = async function (req, res) {
         where: {
             username: req.body.username
         },
-    })
+    }).catch(function () {
+        console.log("Promise Rejected");})
 
     if(!isUserExist){
         res.status(400).json(

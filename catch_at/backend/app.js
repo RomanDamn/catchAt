@@ -7,6 +7,8 @@ const bodyParser = require('body-parser');
 const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
+const allUsersRouter = require('./routes/getAllUsers')
+const addToFavoritesRouter = require('./routes/Favorites')
 const corsMiddleware = require('./middleware/cors.middleware')
 const app = express();
 
@@ -35,6 +37,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/users', allUsersRouter );
+app.use('/api/favorites', addToFavoritesRouter );
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
