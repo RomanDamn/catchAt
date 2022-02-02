@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.hasMany(models.Favorite, {
-        as: 'subscribed',
+        as: 'subscribedId',
         foreignKey: 'subscribedId'
       });
       this.hasMany(models.Favorite, {

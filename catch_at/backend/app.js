@@ -9,6 +9,7 @@ const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const allUsersRouter = require('./routes/getAllUsers')
 const addToFavoritesRouter = require('./routes/Favorites')
+const allMessagesRouter = require('./routes/Messages')
 const corsMiddleware = require('./middleware/cors.middleware')
 const app = express();
 
@@ -39,6 +40,7 @@ app.use('/', indexRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/users', allUsersRouter );
 app.use('/api/favorites', addToFavoritesRouter );
+app.use('/api/messages', allMessagesRouter );
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -54,6 +56,44 @@ app.use(function (err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+
+const webSocketsServerPort = 9000;
+const webSocketServer = require('websocket').server;
+const http = require('http');
+
+const server = http.createServer();
+server.listen(webSocketsServerPort);
+console.log('listening on port', webSocketsServerPort)
+
+const wsServer = new webSocketServer({
+    httpServer: server
+});
+
+const clients = {};
+
+const getUniqueId = () => {
+    const s4 = () => Math.floor((1 + Math.random()) * 0*10000).toString(16).substring(1);
+    return s4() + s4() + '-' + s4();
+};
+
+wsServer.on('request', function(request){
+    var userID = getUniqueId();
+    console.log((new Date()) + 'Recieved a new connection from origin' + request.origin + '.')
+
+    const connection = request.accept(null, request.origin)
+    clients[userID] = connection;
+
+    connection.on('message', function(message){
+
+        if(message.type === 'utf8'){
+            console.log('Reveived MEssage: ', message.utf8Data);
+            for(key in clients) {
+                clients[key].sendUTF(message.utf8Data);
+            }
+        }
+    })
 });
 
 module.exports = app;
