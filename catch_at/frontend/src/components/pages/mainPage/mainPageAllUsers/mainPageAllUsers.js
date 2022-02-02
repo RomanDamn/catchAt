@@ -1,31 +1,59 @@
 import s from "./mainPageAllUsers.module.css"
 import { useEffect, useState } from "react";
+import addToFavorites from "../../../../actions/addToFavorites";
+import deleteFromFavorites from "../../../../actions/deleteFromFavorites";
 
 const AllUsers = (props) => {
     const [users, setUsers] = useState([]);
+    const [favorites, setFavorites] = useState([]);
+    const [state, updateState] = useState(true);
 
 
     useEffect(() => {
         fetch('http://localhost:8000/api/users/all').then(res => res.json())
             .then(data => {
-                const users = data ;
+                const users = data;
                 const allUsers = users.map(user => user.username);
-                setUsers(allUsers);
+                setUsers(users);
+            });
+            fetch('http://localhost:8000/api/favorites/getAll').then(res => res.json())
+            .then(data => {
+                const favoriteUsers = data;
+                const allFavorites = favoriteUsers.map(favorite => favorite.id)
+                setFavorites(allFavorites);
             })
-            
-            }, []);
-            console.log(users, "000000000000000000")
-  
 
-        return (
-            <div className={s.mainblock}>
-                {users.map(el =>
-                <div className={s.mainblock__el} onClick={() => props.setActive(true)}>
-                    <div className={s.mainblock__text}>{el}</div>
+    }, [state]);
+    console.log(users, "000000000000000000")
+    console.log(favorites, "--------------")
+
+
+    // function addToFavorites(subscriberId, subscribedId) {
+    //     fetch('http://localhost:8000/api/favorites/add', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({
+    //             subscribedId: subscribedId,
+    //             subscriberId: subscriberId
+    //         })
+    //     }).then(res => console.log(res.status))
+    // }
+
+
+
+    return (
+        <div className={s.mainblock}>
+            {users.map(el =>
+                <div className={s.mainblock__el} key={el.id}>
+                    <div className={s.mainblock__text} onClick={() => props.setActive(true)}>{el.username}</div>
                     <div className={s.mainblock__messagesCount}>99</div>
-                    <div className={s.mainblock__star}></div>
-                </div>  )}
-                {/* <div className={s.mainblock__el} onClick={() => props.setActive(true)}>
+                    <div className={` ${s.mainblock__star} ${favorites.includes(el.id) ? "" : s.mainblock__star_active}`} onClick={() => {
+                        {favorites.includes(el.id) ? deleteFromFavorites(1,el.id, state, updateState) : addToFavorites(1,el.id, state, updateState)}
+                        }}></div>
+                </div>)}
+            {/* <div className={s.mainblock__el} onClick={() => props.setActive(true)}>
                     <div className={s.mainblock__text}>KFC</div>
                     <div className={s.mainblock__messagesCount}>99</div>
                     <div className={s.mainblock__star}></div>
@@ -50,8 +78,8 @@ const AllUsers = (props) => {
                     <div className={s.mainblock__messagesCount}>99</div>
                     <div className={s.mainblock__star}></div>
                 </div> */}
-            </div>
-        )
-    }
+        </div>
+    )
+}
 
 export default AllUsers;

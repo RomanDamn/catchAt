@@ -1,6 +1,7 @@
 import s from "./mainPageFavorites.module.css";
 import star from "../../../../assets/images/icons/star-5-128.png"
 import { useEffect, useState } from "react";
+import deleteFromFavorites from "../../../../actions/deleteFromFavorites";
 
 const MainPageFavorites = () => {
     const [favoriteUsers, setFavoriteUsers] = useState([]);
@@ -17,19 +18,19 @@ const MainPageFavorites = () => {
     }, [state]);
     console.log(favoriteUsers, "000000000000000000")
 
-     function deleteFromFavorites(subscriberId, subscribedId){
-        fetch('http://localhost:8000/api/favorites/delete', {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                subscribedId: subscribedId,
-                subscriberId: subscriberId
-            })
-        }).then(res => console.log(res.status)).then(() =>
-        updateState(!state))
-     } 
+    //  function deleteFromFavorites(subscriberId, subscribedId){
+    //     fetch('http://localhost:8000/api/favorites/delete', {
+    //         method: 'DELETE',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({
+    //             subscribedId: subscribedId,
+    //             subscriberId: subscriberId
+    //         })
+    //     }).then(res => console.log(res.status)).then(() =>
+    //     updateState(!state))
+    //  } 
 
     return (
         <div className={s.mainblock}>
@@ -38,7 +39,7 @@ const MainPageFavorites = () => {
                     <div className={s.mainblock__text} >{el.username}</div>
                     <div className={s.mainblock__messagesCount}>99</div>
                     <div className={s.mainblock__star} onClick={() =>{
-                         deleteFromFavorites(1, el.id)}}></div>
+                         deleteFromFavorites(1, el.id, state, updateState)}}></div>
                 </div>
             )}
             {/* <div  className={s.mainblock__el}>

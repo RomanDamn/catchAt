@@ -49,7 +49,7 @@
     height: 40px;
 }
 
-.mainblock__star:hover{
+.mainblock__star_active{
     background-image: url("../../../../assets/images/icons/star-5-128.png");
     background-size: 100%;
 }
