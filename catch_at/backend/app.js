@@ -9,8 +9,8 @@ const indexRouter = require('./routes/index');
 const authRouter = require('./routes/auth');
 const allUsersRouter = require('./routes/getAllUsers')
 const addToFavoritesRouter = require('./routes/Favorites')
-const allMessagesRouter = require('./routes/Messages')
 const corsMiddleware = require('./middleware/cors.middleware')
+const messages = require('./services/messagesService')
 const app = express();
 
 app.use(corsMiddleware)
@@ -40,7 +40,6 @@ app.use('/', indexRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/users', allUsersRouter );
 app.use('/api/favorites', addToFavoritesRouter );
-app.use('/api/messages', allMessagesRouter );
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -62,6 +61,7 @@ app.use(function (err, req, res, next) {
 const webSocketsServerPort = 9000;
 const webSocketServer = require('websocket').server;
 const http = require('http');
+const { json } = require('body-parser');
 
 const server = http.createServer();
 server.listen(webSocketsServerPort);
@@ -85,12 +85,15 @@ wsServer.on('request', function(request){
     const connection = request.accept(null, request.origin)
     clients[userID] = connection;
 
-    connection.on('message', function(message){
+    connection.on('message', async function(message){
 
         if(message.type === 'utf8'){
-            console.log('Reveived MEssage: ', message.utf8Data);
+          messages.addMessage(message)
+          const getMessages = await messages.getAllMessages()
+          console.log(getMessages, "GetAllMessages")
+            console.log('Reveived MEssage: ', message);
             for(key in clients) {
-                clients[key].sendUTF(message.utf8Data);
+                clients[key].send(message.utf8Data);
             }
         }
     })

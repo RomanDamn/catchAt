@@ -22,6 +22,10 @@ module.exports = (sequelize, DataTypes) => {
      }
   };
   Message.init({
+    msg: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   }, {
     sequelize,
     modelName: 'Message',
