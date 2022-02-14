@@ -2,14 +2,22 @@ const {
     Message
 } = require("../models");
 
-module.exports.getAllMessages = async function () {
+module.exports.getUserMessages = async function (req, res) {
+    console.log("IN GETMESSAGEWS--------------------")
+    console.log("req.body", req.body)
     try{
-        allMessages = await Message.findAll()
+       const allUserMessages = await Message.findAll({
+            where: {
+                senderId: req.body.senderId,
+                recipientId: req.body.recipientId
+            }
+        })
         .catch(function (err) {
             console.log("Promise Rejected", err);
         });
-    console.log(allUsers, "allUsers")
-    return allMessages
+        // const userMsg = allUserMessages.map( el =>el.msg )
+         console.log(allUserMessages, "===AllUserMessages")
+    return res.status(200).json(allUserMessages)
     } catch(err){
         console.log("promise rejected", err)
     }
@@ -17,11 +25,12 @@ module.exports.getAllMessages = async function () {
 
 module.exports.addMessage = async function (message) {
     try {
-        message = JSON.parse(message.utf8Data);
+        const msg = JSON.parse(message.utf8Data);
+        console.log(msg, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!MSG")
         const addMessage = await Message.create({
-            senderId: message.user,
+            senderId: 1,
             recipientId: 2,
-            msg: message.msg
+            msg: msg.msg
         })
         return addMessage
     } catch (err) {

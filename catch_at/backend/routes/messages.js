@@ -1,10 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-const controller = require("../controllers/messages")
+const controller = require("../services/messagesService")
 
 
-router.get('/getAll', controller.getAllMessages);
-router.get('/addMessage', controller.addMessage);
+router.post('/', controller.getUserMessages);
 
 module.exports = router;

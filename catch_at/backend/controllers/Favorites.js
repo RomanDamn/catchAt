@@ -3,7 +3,6 @@ const {
 } = require("../models");
 
 module.exports.addToFavorites = async function (req, res) {
-    console.log(req.body, " = body")
     const isExist = await Favorite.findOne({
         where: {
             subscriberId: req.body.subscriberId,
@@ -30,7 +29,6 @@ module.exports.addToFavorites = async function (req, res) {
 
 
 module.exports.removeFromFavorites = async function (req, res) {
-    console.log(req.body, " = body")
     const isExist = await Favorite.findOne({
         where: {
             subscriberId: req.body.subscriberId,
@@ -57,7 +55,6 @@ module.exports.removeFromFavorites = async function (req, res) {
 
 
 module.exports.getAllFavorites = async function (req, res) {
-    console.log("You are in getAllFavorites")
     try {
         // const getAllFavorites = await User.findAll({attributes: ['id', 'username'], include: [{model: Favorite, attributes: ["subscriberId"]}, "id"]})
         // return res.status(200).json(getAllFavorites)
@@ -67,10 +64,7 @@ module.exports.getAllFavorites = async function (req, res) {
             },
             attributes: ['subscribedId']
         })
-        console.log(getAllFavoritesOfUser, "===AllFav")
         const getAllFavoritUsers = await Promise.all(getAllFavoritesOfUser.map(async function (user) {
-            console.log(user.subscribedId, "map user")
-
             const findAll = await User.findOne({
                 where: {
                     id: user.subscribedId
@@ -79,12 +73,9 @@ module.exports.getAllFavorites = async function (req, res) {
             }).catch(function (err) {
                 console.log("Promise Rejected", err);
             });
-
-            console.log(findAll, "+find_all")
             return findAll;
         })
         )
-        console.log(getAllFavoritUsers, "------------")
         return res.status(200).json(getAllFavoritUsers)
     } catch (err) {
         console.log("Promise Rejected", err);
