@@ -1,7 +1,7 @@
-import { combineReducers } from "redux";
-import isActiveButtonReducer from "./isActiveButtonReducer";
+import { combineReducers } from "@reduxjs/toolkit";
+import isActiveReducer from "./isActiveButtonSlice";
 
 const rootReducer = combineReducers({
-    isActive: isActiveButtonReducer
+    isActiveState: isActiveReducer,
 })
 export default rootReducer;

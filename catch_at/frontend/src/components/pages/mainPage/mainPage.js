@@ -9,14 +9,17 @@ import MessagesPopup from "./messagesPopup/messagesPopup";
 import { Link } from "react-router-dom";
 import AllUsers from "./mainPageAllUsers/mainPageAllUsers";
 import { useDispatch, useSelector } from "react-redux";
-import isActiveButtonReducer from "../../../reducers/isActiveButtonReducer";
+import isActiveButtonSlice, { makeActive } from "../../../reducers/isActiveButtonSlice";
 import MainPageMessages from "./mainPageMessages/mainPageMessages";
 
 const MainPage = () => {
     const [messagesBarActive, setMessagesBarActive] = useState(false);
     const dispatch = useDispatch();
-    const isActiveButon = useSelector(state => state.isActive.isActive)
-    const buttonId = useSelector(state => state.isActive.id)
+    const isActiveButon = useSelector(state => state.isActiveState.isActive)
+    console.log(isActiveButon, "==Is activeButton")
+    const buttonId = useSelector(state => state.isActiveState.id)
+    console.log(buttonId, "--==buttonID")
+    console.log(makeActive, "makeActive")
     return (
         <BrowserRouter>
             <div className={s.page}>
@@ -30,22 +33,22 @@ const MainPage = () => {
 
                 <div className={s.content}>
                     <div className={s.sidebar}>
-                        <Link to="/all" onClick={() => {dispatch({ type: "MAKE_ACTIVE", payload: { id: 1 } })}}
+                        <Link to="/all" onClick={() => dispatch(makeActive(1))}
                         className={` ${s.sidebar__el} ${isActiveButon && buttonId === 1 ? s.activeButton : ""}`} >
                             ALL
                         </Link>
-                        <Link to="/favorites" onClick={() => dispatch({ type: "MAKE_ACTIVE", payload: { id: 2 } })}>
+                        <Link to="/favorites" onClick={() => dispatch(makeActive(2))}>
                             <div className={` ${s.sidebar__el} ${isActiveButon && buttonId == 2 ? s.activeButton : ""}`} >
                                 <img className={s.sidebar__star}
                                     src={star}
                                     alt="Star" />
                             </div>
                         </Link>
-                        <Link to="/messages" onClick={() => dispatch({ type: "MAKE_ACTIVE", payload: { id: 3 } })}
+                        <Link to="/messages" onClick={() => dispatch(makeActive(3))}
                         className={` ${s.sidebar__el} ${isActiveButon && buttonId == 3 ? s.activeButton : ""}`}>
                             MES
                         </Link>
-                        <Link to="/profile" onClick={() => dispatch({ type: "MAKE_ACTIVE", payload: { id: 4 } })}
+                        <Link to="/profile" onClick={() => dispatch(makeActive(4))}
                         className={` ${s.sidebar__el} ${isActiveButon && buttonId == 4 ? s.activeButton : ""}`}>
                             ME
                         </Link>
