@@ -16,8 +16,8 @@ module.exports.getUserMessages = async function (req, res) {
             console.log("Promise Rejected", err);
         });
         // const userMsg = allUserMessages.map( el =>el.msg )
-         console.log(allUserMessages, "===AllUserMessages")
-    return res.status(200).json(allUserMessages)
+         console.log( JSON.stringify(allUserMessages), "===AllUserMessages")
+    return res.json(allUserMessages);
     } catch(err){
         console.log("promise rejected", err)
     }
@@ -26,7 +26,7 @@ module.exports.getUserMessages = async function (req, res) {
 module.exports.addMessage = async function (message) {
     try {
         const msg = JSON.parse(message.utf8Data);
-        console.log(msg, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!MSG")
+        console.log(msg, "!!!!!!!!!!!!!!!!!!!!!!MSG")
         const addMessage = await Message.create({
             senderId: 1,
             recipientId: 2,
