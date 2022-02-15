@@ -16,10 +16,7 @@ const MainPage = () => {
     const [messagesBarActive, setMessagesBarActive] = useState(false);
     const dispatch = useDispatch();
     const isActiveButon = useSelector(state => state.isActiveState.isActive)
-    console.log(isActiveButon, "==Is activeButton")
     const buttonId = useSelector(state => state.isActiveState.id)
-    console.log(buttonId, "--==buttonID")
-    console.log(makeActive, "makeActive")
     return (
         <BrowserRouter>
             <div className={s.page}>

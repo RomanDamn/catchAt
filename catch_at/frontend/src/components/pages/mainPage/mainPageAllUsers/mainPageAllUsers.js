@@ -24,8 +24,6 @@ const AllUsers = (props) => {
             })
 
     }, [state]);
-    console.log(users, "000000000000000000")
-    console.log(favorites, "--------------")
 
 
     // function addToFavorites(subscriberId, subscribedId) {

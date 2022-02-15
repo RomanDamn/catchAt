@@ -29,10 +29,6 @@ const MessagesPopup = (props) => {
         }
     }
 
-    console.log(messages + "-messages")
-    console.log(message + "----Message")
-    console.log(writingUser, " Writing user")
-
     client.onopen = () => {
         console.log("WebSocket Client COnnected");
     };
@@ -60,7 +56,9 @@ const MessagesPopup = (props) => {
                 senderId: senderId,
                 recipientId: recipientId
             })
-        }).then(res =>{console.log(res, "reeeesssssssss"); res.json()}).then(data => console.log(data, "datataa"))
+        }).then(res => res.json()
+        ).then(data => 
+            Array.from(data).forEach(el => setMessages([...messages,{ msg: el.msg, user: writingUser }])))
         // .then(res => res.foreach(el => {
         //     console.log(el, "------------element");
         //     setMessages([...messages, el])
@@ -70,8 +68,8 @@ const MessagesPopup = (props) => {
 
 
         console.log("in end OF EFFECT")
-        console.log(messages, "==========messages")
-    }, [writingUser]);
+        //console.log(messages, "==========messages")
+    }, []);
     // const getMessages = async (senderId, recipientId) =>{
     //     const getUserMessages = await fetch("http://localhost:8000/api/messages", {
     //         method: 'POST',
@@ -84,7 +82,7 @@ const MessagesPopup = (props) => {
     //         })
     //     })
     // }
-
+    messages.forEach(el => console.log(el, "current Messages in messsages"))
     return (
         <div className={` ${s.content} ${props.active ? s.active : ""}`} >
             <div className={s.header}>
@@ -113,7 +111,7 @@ const MessagesPopup = (props) => {
                     <div className={s.messages__text}>I knew, I would be like this</div>
                     <div className={s.messages__del}>DEL</div>
                 </div>
-                {messages && messages.map(mes => <MessageElement key={mes} messages={mes} />)}
+                {messages.map(mes => <MessageElement messages={mes} />)}
             </div>
 
             <div className={s.messages__writingArea}>
