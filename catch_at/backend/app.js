@@ -94,11 +94,11 @@ wsServer.on('request', function (request) {
       // const getMessages = await messages.getUserMessages(1, 2)
       // console.log(getMessages, "=======GetAllMessages")
       // console.log('Reveived MEssage: ', message);
-      // for (key in clients) {
-      //   console.log(key, "--------------key")
-      //   getMessages.forEach(element => { console.log(element.dataValues.msg, "!!!!!!!!!!!element.msg"); clients[key].send(element.dataValues.msg) });
-        // clients[key].send(message.utf8Data);
-      // }
+      for (key in clients) {
+        // console.log(key, "--------------key")
+        // getMessages.forEach(element => { console.log(element.dataValues.msg, "!!!!!!!!!!!element.msg"); clients[key].send(element.dataValues.msg) });
+        clients[key].send(message.utf8Data);
+       }
     }
   })
 });
