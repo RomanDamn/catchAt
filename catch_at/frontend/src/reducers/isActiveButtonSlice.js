@@ -6,23 +6,6 @@ const initialState = {
     isActive: false,
 };
 
-// export default function isActiveButtonReducer(state=defaultState, action){
-//     switch (action.type){
-//         case MAKE_ACTIVE:
-//             return {
-//                 id: action.payload.id,
-//                 isActive: true
-//             }
-//         // case MAKE_DISACTIVE:
-//         //     return {
-//         //         isActive: false
-//         //     }
-//         default:
-//             return state
-//     }
-
-    
-// }
 const isActiveButtonSlice = createSlice({
     name: 'activeButton',
     initialState,

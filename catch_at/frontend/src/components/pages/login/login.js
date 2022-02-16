@@ -3,13 +3,17 @@ import s from "./login.module.css";
 import logo from "../../../assets/images/logo.png";
 import Header from "../../shared/header/header";
 import {login} from "../../../actions/login"
+import { useDispatch, useSelector } from "react-redux";
+import { setToken } from "../../../reducers/tokenSlice";
 
 
-const Content = () =>{
+const Content = () => {
     const [username, setUsername] = useState('')
     const [pass, setPass] = useState('')
     const [error, setError] = useState('')
-
+    const dispatch = useDispatch();
+    
+console.log(useSelector(state => state.tokenState.token))
     return (
         <div className= {s.content}>
             <h1 className={s.registration}> Login</h1>
@@ -25,13 +29,17 @@ const Content = () =>{
             {error ? <div className={s.error}>{error}</div> : ''}
             <button disabled={!username || !pass}
              className={username && pass ? s.loginButton : s.loginButtonDisabled }
-             onClick={() => login(username, pass, setError)} >Login</button>
+             onClick={() => {
+                 const lol = dispatch(setToken({username, pass, setError}))
+                 //login(username, pass, setError)
+                 console.log(lol, "lolol")
+                 
+                 }} >Login</button>
             <button className={s.forgetPassword}>Forget password?</button>
         </div>
     )
 }
 
-//onClick={()=>submit(username, pass)}
 const Login = () =>{
     return (
         <div>

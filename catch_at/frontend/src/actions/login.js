@@ -1,5 +1,7 @@
 import axios from "axios"
+import { useDispatch } from "react-redux"
 import s from "../components/pages/login/login.module.css"
+import { setToken } from "../reducers/tokenSlice"
 
 export const login = async (username, password, setError) =>{
     try{
@@ -8,7 +10,9 @@ export const login = async (username, password, setError) =>{
             username,
             password
         })
+        //const token = useDispatch(setToken(response.data.token))
         console.log(response.data)
+        //console.log(token)
 
     }catch(error){
         console.log(error.response.data.message);

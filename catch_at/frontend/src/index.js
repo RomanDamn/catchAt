@@ -6,12 +6,13 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux'
 import rootReducer from './reducers/index';
 import { configureStore } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { createStore } from './state/store';
 
 
-  const store = configureStore({
-    reducer: rootReducer,
-  });
 
+
+const store = createStore();
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,5 +1,4 @@
 import s from "./messagesPopup.module.css";
-import { css } from "@emotion/css"
 import { w3cwebsocket } from "websocket"
 import { useState, useRef, useEffect } from "react";
 import MessageElement from "./messageElement/MessageElement";
@@ -56,12 +55,8 @@ const MessagesPopup = (props) => {
         }).then(res => res.json()
         ).then(data => setMessages(data))
             
-
-
-        console.log("in end OF EFFECT")
-        console.log(messages, "==========messages")
     }, []);
-    messages.forEach(el => console.log(el, "current Messages in messsages"))
+
     return (
         <div className={` ${s.content} ${props.active ? s.active : ""}`} >
             <div className={s.header}>
