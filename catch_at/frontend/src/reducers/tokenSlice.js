@@ -5,7 +5,7 @@ const initialState = {
     token: ""
 };
 
-const tokenSlice = createSlice({
+export const tokenSlice = createSlice({
     name: 'token',
     initialState,
     reducers: {

@@ -1,10 +1,10 @@
 import axios from "axios";
 import { put, call, takeLatest } from "redux-saga/effects";
-import tokenSlice from "../tokenSlice"
+import { tokenSlice } from "../tokenSlice"
 
 export function* setTokenSaga() {   
     yield takeLatest(tokenSlice.actions.setToken, tokenRequested);
-    console.log("In setTokernSaga")
+     console.log("In setTokernSaga")
   }
 
   function* tokenRequested(payload) {

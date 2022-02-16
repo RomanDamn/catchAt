@@ -30,11 +30,12 @@ console.log(useSelector(state => state.tokenState.token))
             <button disabled={!username || !pass}
              className={username && pass ? s.loginButton : s.loginButtonDisabled }
              onClick={() => {
-                 const lol = dispatch(setToken({username, pass, setError}))
-                 //login(username, pass, setError)
-                 console.log(lol, "lolol")
+                    const lol = dispatch(setToken({username, pass, setError}))
+                    //login(username, pass, setError)
+                    console.log(lol, "lolol")
                  
-                 }} >Login</button>
+                 }} >Login
+            </button>
             <button className={s.forgetPassword}>Forget password?</button>
         </div>
     )
