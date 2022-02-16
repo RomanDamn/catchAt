@@ -24,9 +24,7 @@ const MessagesPopup = (props) => {
         user: writingUser
     })
     const handleKeyDown = (event) => {
-        if (event.key === 'Enter' && message) { //&& data[data.length - 1].msg) {
-            client.send(data)
-        }
+        if (event.key === 'Enter' && message) client.send(data);
     }
 
     client.onopen = () => {
@@ -38,9 +36,8 @@ const MessagesPopup = (props) => {
     }
 
     client.onmessage = function (event) {
-        console.log("event.data =  ", event.data);
-        // const data = JSON.parse(event.data)
-        setMessages([...messages, { msg: event.data, user: writingUser }]);
+        const data = JSON.parse(event.data)
+        setMessages([...messages, { msg: data.msg, user: writingUser }]);
         scrollToBottom()
     }
 
@@ -57,31 +54,13 @@ const MessagesPopup = (props) => {
                 recipientId: recipientId
             })
         }).then(res => res.json()
-        ).then(data => 
-            Array.from(data).forEach(el => setMessages([...messages,{ msg: el.msg, user: writingUser }])))
-        // .then(res => res.foreach(el => {
-        //     console.log(el, "------------element");
-        //     setMessages([...messages, el])
-        // }))
-            //.then(res => setMessages([...messages, res]))
+        ).then(data => setMessages(data))
             
 
 
         console.log("in end OF EFFECT")
-        //console.log(messages, "==========messages")
+        console.log(messages, "==========messages")
     }, []);
-    // const getMessages = async (senderId, recipientId) =>{
-    //     const getUserMessages = await fetch("http://localhost:8000/api/messages", {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({
-    //             senderId: senderId,
-    //             recipientId: recipientId
-    //         })
-    //     })
-    // }
     messages.forEach(el => console.log(el, "current Messages in messsages"))
     return (
         <div className={` ${s.content} ${props.active ? s.active : ""}`} >

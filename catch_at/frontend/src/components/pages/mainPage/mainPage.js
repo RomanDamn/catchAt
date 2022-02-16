@@ -13,7 +13,7 @@ import isActiveButtonSlice, { makeActive } from "../../../reducers/isActiveButto
 import MainPageMessages from "./mainPageMessages/mainPageMessages";
 
 const MainPage = () => {
-    const [messagesBarActive, setMessagesBarActive] = useState(false);
+    const [messagesBarActive, setMessagesBarActive] = useState(true);
     const dispatch = useDispatch();
     const isActiveButon = useSelector(state => state.isActiveState.isActive)
     const buttonId = useSelector(state => state.isActiveState.id)
