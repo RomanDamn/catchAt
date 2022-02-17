@@ -28,8 +28,8 @@ module.exports.addMessage = async function (message) {
         const msg = JSON.parse(message.utf8Data);
         console.log(msg, "!!!!!!!!!!!!!!!!!!!!!!MSG")
         const addMessage = await Message.create({
-            senderId: 1,
-            recipientId: 2,
+            senderId: msg.senderId,
+            recipientId: msg.recipientId,
             msg: msg.msg
         })
         return addMessage

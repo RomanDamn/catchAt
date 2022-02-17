@@ -6,13 +6,14 @@ const {
 } = require("../models");
 
 
-module.exports.login = async function (req, res) {
+module.exports.login = async function (req, res)  {
+    console.log("req =", req.body )
     isUserExist = await User.findOne({
         where: {
             username: req.body.username
         },
-    }).catch(function () {
-        console.log("Promise Rejected");})
+    }).catch(function (err) {
+        console.log("Promise Rejected because", err);})
 
     if(!isUserExist){
         res.status(400).json(
