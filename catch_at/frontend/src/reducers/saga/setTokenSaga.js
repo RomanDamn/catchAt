@@ -3,17 +3,17 @@ import { put, call, takeLatest } from "redux-saga/effects";
 import { tokenSlice } from "../tokenSlice"
 
 export function* setTokenSaga() {   
-    yield takeLatest(tokenSlice.actions.setToken, tokenRequested);
+    yield takeLatest(tokenSlice.actions.tokenRequest, tokenRequested);
      console.log("In setTokernSaga")
   }
 
-  function* tokenRequested(payload) {
+  function* tokenRequested(action) {
       console.log("in tokenRequested")
     try{
         //setError(<div className={s.waiting}>Waiting ....</div>)
         const response = yield axios.post("http://localhost:8000/api/auth/login", {
-            username: payload.username,
-            password: payload.password
+            username: action.payload.username,
+            password: action.payload.password
         })
         //const token = useDispatch(setToken(response.data.token))
         console.log("I am in saga");

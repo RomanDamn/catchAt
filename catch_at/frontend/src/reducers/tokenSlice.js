@@ -14,9 +14,14 @@ export const tokenSlice = createSlice({
                 ...state,
                 token: action.payload
             }
-        }
+        },
+        tokenRequest: (state, action) =>{
+            return {
+                ...state,
+            }
+        } 
     }
 })
 
-export const { setToken } = tokenSlice.actions;
+export const { setToken, tokenRequest } = tokenSlice.actions;
 export default tokenSlice.reducer;

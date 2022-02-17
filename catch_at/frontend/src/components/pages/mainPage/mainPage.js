@@ -11,12 +11,15 @@ import AllUsers from "./mainPageAllUsers/mainPageAllUsers";
 import { useDispatch, useSelector } from "react-redux";
 import isActiveButtonSlice, { makeActive } from "../../../reducers/isActiveButtonSlice";
 import MainPageMessages from "./mainPageMessages/mainPageMessages";
+import jwt_decode from "jwt-decode";
 
 const MainPage = () => {
-    const [messagesBarActive, setMessagesBarActive] = useState(true);
+    const [messagesBarActive, setMessagesBarActive] = useState(false);
+    const [recipientId, setRecipientId] = useState('')
     const dispatch = useDispatch();
     const isActiveButon = useSelector(state => state.isActiveState.isActive)
     const buttonId = useSelector(state => state.isActiveState.id)
+
     return (
         <BrowserRouter>
             <div className={s.page}>
@@ -56,12 +59,12 @@ const MainPage = () => {
                     </Route>
                     <Route component={Profile} path="/profile" />
                     <Route path="/all">
-                        <AllUsers active={messagesBarActive} setActive={setMessagesBarActive} />  
+                        <AllUsers setRecipientId={setRecipientId} active={messagesBarActive} setActive={setMessagesBarActive} />  
                     </Route>
                 </div>
                 <div className={s.footer}>
                 </div>
-                <MessagesPopup active={messagesBarActive} setActive={setMessagesBarActive}/>
+                {/* <MessagesPopup recipientId={recipientId} active={messagesBarActive} setActive={setMessagesBarActive}/> */}
             </div>
         </BrowserRouter>
     )

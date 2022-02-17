@@ -2,6 +2,8 @@ import s from "./messagesPopup.module.css";
 import { w3cwebsocket } from "websocket"
 import { useState, useRef, useEffect } from "react";
 import MessageElement from "./messageElement/MessageElement";
+import jwt_decode from "jwt-decode"
+import { useSelector } from "react-redux";
 
 const client = new w3cwebsocket('ws://127.0.0.1:9000');
 
@@ -11,16 +13,17 @@ const MessagesPopup = (props) => {
     const [messages, setMessages] = useState([]);
     const chatBarScroll = useRef();
 
-    const [senderId, setSenderId] = useState(1)
-    const [recipientId, setRecipientId] = useState(2)
-
-
+    const token = useSelector(state => state.tokenState.token)
+    console.log("token == ", token)
+    const decodedToken = token ? jwt_decode(token) : ""
+    console.log("decodedToken == ", decodedToken)
 
     //Handle Enter Button in input area
     const data = JSON.stringify({
         type: "message",
         msg: message,
-        user: writingUser
+        senderId: decodedToken.id,
+        recipientId: props.recipientId,
     })
     const handleKeyDown = (event) => {
         if (event.key === 'Enter' && message) client.send(data);
@@ -49,13 +52,13 @@ const MessagesPopup = (props) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                senderId: senderId,
-                recipientId: recipientId
+                senderId: decodedToken.id,
+                recipientId: props.recipientId
             })
         }).then(res => res.json()
         ).then(data => setMessages(data))
-            
-    }, []);
+
+    }, [props.active]);
 
     return (
         <div className={` ${s.content} ${props.active ? s.active : ""}`} >
@@ -96,7 +99,8 @@ const MessagesPopup = (props) => {
                     const data = JSON.stringify({
                         type: "message",
                         msg: message,
-                        user: writingUser,
+                        senderId: decodedToken.id,
+                        recipientId: props.recipientId
                     })
                     { message && client.send(data); }
                 }}>{'>'} </div>

@@ -5,8 +5,7 @@ import { setToken } from '../reducers/tokenSlice';
 
 export const axiosResponse = (token) => {
   axios.interceptors.response.use((response) => {
-    response.headers.Authorization = `Bearer ${response.data.token}`
-    console.log(response, "=response")
+    response.headers.Authorization = `Bearer ${token}`
     return response;
   });
 }
@@ -14,7 +13,6 @@ export const axiosResponse = (token) => {
 export const axiosRequest = (token) => {
   axios.interceptors.request.use((request) => {
     request.headers.Authorization = `Bearer ${token}`
-    console.log(request, "=request")
     return request;
   });
 }
