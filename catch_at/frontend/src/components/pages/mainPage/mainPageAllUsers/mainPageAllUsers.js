@@ -55,7 +55,7 @@ const AllUsers = (props) => {
                         {favorites.includes(el.id) ? deleteFromFavorites(1,el.id, state, updateState) : addToFavorites(1,el.id, state, updateState)}
                         }}></div>
                 </div>)}
-                <MessagesPopup recipientId={recipientId} active={messagesBarActive} setActive={setMessagesBarActive}/>
+                { messagesBarActive && <MessagesPopup recipientId={recipientId} active={messagesBarActive} setActive={setMessagesBarActive}/>}
             {/* <div className={s.mainblock__el} onClick={() => props.setActive(true)}>
                     <div className={s.mainblock__text}>KFC</div>
                     <div className={s.mainblock__messagesCount}>99</div>

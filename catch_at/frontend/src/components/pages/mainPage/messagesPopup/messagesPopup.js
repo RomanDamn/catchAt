@@ -10,8 +10,12 @@ const client = new w3cwebsocket('ws://127.0.0.1:9000');
 const MessagesPopup = (props) => {
     const [writingUser, setWritingUser] = useState("")
     const [message, setMessage] = useState("")
-    const [messages, setMessages] = useState([]);
+    const [userMessages, setUserMessages] = useState([]);
+    const [recipientMessages, setRecipientMessages] = useState([]);
+    const [allMessages, setAllMessages] = useState([]);
     const chatBarScroll = useRef();
+
+    console.log(allMessages, "allMess")
 
     const token = useSelector(state => state.tokenState.token)
     console.log("token == ", token)
@@ -39,12 +43,14 @@ const MessagesPopup = (props) => {
 
     client.onmessage = function (event) {
         const data = JSON.parse(event.data)
-        setMessages([...messages, { msg: data.msg, user: writingUser }]);
+        setUserMessages([...userMessages, { msg: data.msg, user: writingUser, id: decodedToken.id }]);
         scrollToBottom()
+        setMessage("")
     }
 
     client.onopen();
     useEffect(() => {
+
         console.log('IN USE EFFECT')
         fetch("http://localhost:8000/api/messages", {
             method: 'POST',
@@ -56,9 +62,31 @@ const MessagesPopup = (props) => {
                 recipientId: props.recipientId
             })
         }).then(res => res.json()
-        ).then(data => setMessages(data))
+        ).then(data => setUserMessages(data))
+        
+
+        fetch("http://localhost:8000/api/messages", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    senderId: props.recipientId,
+                    recipientId: decodedToken.id
+                })
+            }).then(res => res.json()
+            ).then(data => setRecipientMessages(data))
 
     }, [props.active]);
+
+     let allMsg = userMessages.concat(recipientMessages)
+        allMsg.forEach(el => {
+            console.log(allMessages.includes(el), "isIncludes")
+            if(!allMessages.includes(el)) setAllMessages([...allMessages, el])
+        })
+        allMsg = allMessages.sort(function(a,b){
+            return new Date(a.createdAt) - new Date(b.createdAt);})
+            console.log(allMsg, "allMsg")
 
     return (
         <div className={` ${s.content} ${props.active ? s.active : ""}`} >
@@ -88,7 +116,7 @@ const MessagesPopup = (props) => {
                     <div className={s.messages__text}>I knew, I would be like this</div>
                     <div className={s.messages__del}>DEL</div>
                 </div>
-                {messages.map(mes => <MessageElement messages={mes} />)}
+                {allMsg.map(mes => <MessageElement messages={mes} token={decodedToken} />)}
             </div>
 
             <div className={s.messages__writingArea}>
