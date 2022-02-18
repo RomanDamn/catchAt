@@ -43,7 +43,7 @@ const MessagesPopup = (props) => {
 
     client.onmessage = function (event) {
         const data = JSON.parse(event.data)
-        setUserMessages([...userMessages, { msg: data.msg, user: writingUser, id: decodedToken.id }]);
+        setUserMessages([...userMessages, { msg: data.msg, senderId: decodedToken.id }]);
         scrollToBottom()
         setMessage("")
     }
@@ -77,7 +77,13 @@ const MessagesPopup = (props) => {
             }).then(res => res.json()
             ).then(data => setRecipientMessages(data))
 
-    }, [props.active]);
+            //scrollToBottom()
+
+    }, []);
+
+    useEffect(() =>{
+        scrollToBottom()
+    },[allMessages])
 
      let allMsg = userMessages.concat(recipientMessages)
         allMsg.forEach(el => {
@@ -87,11 +93,11 @@ const MessagesPopup = (props) => {
         allMsg = allMessages.sort(function(a,b){
             return new Date(a.createdAt) - new Date(b.createdAt);})
             console.log(allMsg, "allMsg")
-
+console.log(props, "props")
     return (
         <div className={` ${s.content} ${props.active ? s.active : ""}`} >
             <div className={s.header}>
-                <input value={writingUser} className={s.header__element} onChange={e => setWritingUser(e.target.value)} />
+                <div value={props.recipientName} className={s.header__element}>{props.recipientName}</div>
                 <div className={s.header__element}> DEL</div>
                 <button className={s.header__element} onClick={() => props.setActive(false)}> X</button>
             </div>
@@ -132,6 +138,7 @@ const MessagesPopup = (props) => {
                     })
                     { message && client.send(data); }
                 }}>{'>'} </div>
+                {/* <div onClick={e => scrollToBottom()}>Scroll</div> */}
             </div>
         </div>
     )

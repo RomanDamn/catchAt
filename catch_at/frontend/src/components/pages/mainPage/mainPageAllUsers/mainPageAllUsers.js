@@ -8,7 +8,8 @@ const AllUsers = (props) => {
     const [users, setUsers] = useState([]);
     const [favorites, setFavorites] = useState([]);
     const [messagesBarActive, setMessagesBarActive] = useState(false);
-    const [recipientId, setRecipientId] = useState('')
+    const [recipientId, setRecipientId] = useState('');
+    const [recipientName, setRecipientName] = useState('');
     const [state, updateState] = useState(true);
 
 
@@ -49,13 +50,13 @@ const AllUsers = (props) => {
         <div className={s.mainblock}>
             {users.map(el =>
                 <div className={s.mainblock__el} key={el.id}>
-                    <div className={s.mainblock__text} onClick={() => {setMessagesBarActive(true); setRecipientId(el.id)}}>{el.username}</div>
+                    <div className={s.mainblock__text} onClick={() => {setMessagesBarActive(true); setRecipientId(el.id); setRecipientName(el.username)}}>{el.username}</div>
                     <div className={s.mainblock__messagesCount}>{el.id}</div>
                     <div className={` ${s.mainblock__star} ${favorites.includes(el.id) ? "" : s.mainblock__star_active}`} onClick={() => {
                         {favorites.includes(el.id) ? deleteFromFavorites(1,el.id, state, updateState) : addToFavorites(1,el.id, state, updateState)}
                         }}></div>
                 </div>)}
-                { messagesBarActive && <MessagesPopup recipientId={recipientId} active={messagesBarActive} setActive={setMessagesBarActive}/>}
+                { messagesBarActive && <MessagesPopup recipientName={recipientName} recipientId={recipientId} active={messagesBarActive} setActive={setMessagesBarActive}/>}
             {/* <div className={s.mainblock__el} onClick={() => props.setActive(true)}>
                     <div className={s.mainblock__text}>KFC</div>
                     <div className={s.mainblock__messagesCount}>99</div>
