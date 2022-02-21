@@ -2,8 +2,15 @@ import s from "./mainPageFavorites.module.css";
 import star from "../../../../assets/images/icons/star-5-128.png"
 import { useEffect, useState } from "react";
 import deleteFromFavorites from "../../../../actions/deleteFromFavorites";
+import MessagesPopup from "../messagesPopup/messagesPopup";
+import { useDispatch, useSelector } from "react-redux";
+import { makePopupActive } from "../../../../reducers/popupSlice";
 
 const MainPageFavorites = () => {
+    const dispatch = useDispatch();
+    const popupState = useSelector(state => state.popupState.isActive)
+    const [recipientId, setRecipientId] = useState('');
+    const [recipientName, setRecipientName] = useState('');
     const [favoriteUsers, setFavoriteUsers] = useState([]);
     const [state, updateState] = useState(true);
 
@@ -36,12 +43,13 @@ const MainPageFavorites = () => {
         <div className={s.mainblock}>
             {favoriteUsers.map(el =>
                 <div className={s.mainblock__el}>
-                    <div className={s.mainblock__text} >{el.username}</div>
+                    <div className={s.mainblock__text} onClick={() => {dispatch(makePopupActive(true)); setRecipientId(el.id); setRecipientName(el.username)}} >{el.username}</div>
                     <div className={s.mainblock__messagesCount}>99</div>
                     <div className={s.mainblock__star} onClick={() =>{
                          deleteFromFavorites(1, el.id, state, updateState)}}></div>
                 </div>
             )}
+             { popupState && <MessagesPopup recipientName={recipientName} recipientId={recipientId} active={popupState}/>}
             {/* <div  className={s.mainblock__el}>
                         <div  className={s.mainblock__text} >KFC</div>
                         <div  className={s.mainblock__messagesCount}>99</div>

@@ -3,15 +3,17 @@ import { useEffect, useState } from "react";
 import addToFavorites from "../../../../actions/addToFavorites";
 import deleteFromFavorites from "../../../../actions/deleteFromFavorites";
 import MessagesPopup from "../messagesPopup/messagesPopup";
+import { useDispatch, useSelector } from "react-redux";
+import { makePopupActive } from "../../../../reducers/popupSlice";
 
 const AllUsers = (props) => {
+    const dispatch = useDispatch();
+    const popupState = useSelector(state => state.popupState.isActive)
     const [users, setUsers] = useState([]);
     const [favorites, setFavorites] = useState([]);
-    const [messagesBarActive, setMessagesBarActive] = useState(false);
     const [recipientId, setRecipientId] = useState('');
     const [recipientName, setRecipientName] = useState('');
     const [state, updateState] = useState(true);
-
 
     useEffect(() => {
         fetch('http://localhost:8000/api/users/all').then(res => res.json())
@@ -50,13 +52,13 @@ const AllUsers = (props) => {
         <div className={s.mainblock}>
             {users.map(el =>
                 <div className={s.mainblock__el} key={el.id}>
-                    <div className={s.mainblock__text} onClick={() => {setMessagesBarActive(true); setRecipientId(el.id); setRecipientName(el.username)}}>{el.username}</div>
+                    <div className={s.mainblock__text} onClick={() => {dispatch(makePopupActive(true)); setRecipientId(el.id); setRecipientName(el.username)}}>{el.username}</div>
                     <div className={s.mainblock__messagesCount}>{el.id}</div>
                     <div className={` ${s.mainblock__star} ${favorites.includes(el.id) ? "" : s.mainblock__star_active}`} onClick={() => {
                         {favorites.includes(el.id) ? deleteFromFavorites(1,el.id, state, updateState) : addToFavorites(1,el.id, state, updateState)}
                         }}></div>
                 </div>)}
-                { messagesBarActive && <MessagesPopup recipientName={recipientName} recipientId={recipientId} active={messagesBarActive} setActive={setMessagesBarActive}/>}
+                { popupState && <MessagesPopup recipientName={recipientName} recipientId={recipientId} active={popupState}/>}
             {/* <div className={s.mainblock__el} onClick={() => props.setActive(true)}>
                     <div className={s.mainblock__text}>KFC</div>
                     <div className={s.mainblock__messagesCount}>99</div>

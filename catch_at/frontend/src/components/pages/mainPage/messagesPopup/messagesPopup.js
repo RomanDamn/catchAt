@@ -3,12 +3,13 @@ import { w3cwebsocket } from "websocket"
 import { useState, useRef, useEffect } from "react";
 import MessageElement from "./messageElement/MessageElement";
 import jwt_decode from "jwt-decode"
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { makePopupActive } from "../../../../reducers/popupSlice";
 
 const client = new w3cwebsocket('ws://127.0.0.1:9000');
 
 const MessagesPopup = (props) => {
-    const [writingUser, setWritingUser] = useState("")
+    const dispatch = useDispatch();
     const [message, setMessage] = useState("")
     const [userMessages, setUserMessages] = useState([]);
     const [recipientMessages, setRecipientMessages] = useState([]);
@@ -18,7 +19,6 @@ const MessagesPopup = (props) => {
     console.log(allMessages, "allMess")
 
     const token = useSelector(state => state.tokenState.token)
-    console.log("token == ", token)
     const decodedToken = token ? jwt_decode(token) : ""
     console.log("decodedToken == ", decodedToken)
 
@@ -43,7 +43,7 @@ const MessagesPopup = (props) => {
 
     client.onmessage = function (event) {
         const data = JSON.parse(event.data)
-        setUserMessages([...userMessages, { msg: data.msg, senderId: decodedToken.id }]);
+        setAllMessages([...allMessages, { msg: data.msg, senderId: data.senderId, recipientId: data.recipientId }]);
         scrollToBottom()
         setMessage("")
     }
@@ -87,19 +87,17 @@ const MessagesPopup = (props) => {
 
      let allMsg = userMessages.concat(recipientMessages)
         allMsg.forEach(el => {
-            console.log(allMessages.includes(el), "isIncludes")
             if(!allMessages.includes(el)) setAllMessages([...allMessages, el])
         })
         allMsg = allMessages.sort(function(a,b){
             return new Date(a.createdAt) - new Date(b.createdAt);})
-            console.log(allMsg, "allMsg")
 console.log(props, "props")
     return (
         <div className={` ${s.content} ${props.active ? s.active : ""}`} >
             <div className={s.header}>
                 <div value={props.recipientName} className={s.header__element}>{props.recipientName}</div>
                 <div className={s.header__element}> DEL</div>
-                <button className={s.header__element} onClick={() => props.setActive(false)}> X</button>
+                <button className={s.header__element} onClick={() => dispatch(makePopupActive(false))}> X</button>
             </div>
             <div ref={chatBarScroll} className={s.messages}>
                 <div className={s.messages__message}>

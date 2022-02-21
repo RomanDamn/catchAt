@@ -1,7 +1,25 @@
 import s from "./mainPageMessages.module.css";
 import star from "../../../../assets/images/icons/star-5-128.png"
+import { useEffect, useState } from "react";
 
-const mainPageMessages = (props) => {
+const MainPageMessages = (props) => {
+    const [messagedUsers, setMessagedUsers] = useState("");
+
+
+    useEffect(() => {
+        fetch("http://localhost:8000/api/users/messagedUsers", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                senderId: 1
+            })
+        }).then(res => res.json()
+        ).then(data => setMessagedUsers(data))
+
+    }, []);
+    console.log(messagedUsers, "=messagedUsers")
     return (
                 <div className={s.mainblock}>
                     <div  className={s.mainblock__el}>
@@ -26,4 +44,4 @@ const mainPageMessages = (props) => {
     )
 }
 
-export default mainPageMessages;
+export default MainPageMessages;
