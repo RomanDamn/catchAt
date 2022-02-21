@@ -76,7 +76,7 @@ const wsServer = new webSocketServer({
 const clients = {};
 
 const getUniqueId = () => {
-  const s4 = () => Math.floor((1 + Math.random()) * 0 * 10000).toString(16).substring(1);
+  const s4 = () => (new Date()).getTime();
   return s4() + s4() + '-' + s4();
 };
 
@@ -86,21 +86,18 @@ wsServer.on('request', function (request) {
 
   const connection = request.accept(null, request.origin)
   clients[userID] = connection;
-
   connection.on('message', async function (message) {
 
     if (message.type === 'utf8') {
       await messages.addMessage(message)
-      // const getMessages = await messages.getUserMessages(1, 2)
-      // console.log(getMessages, "=======GetAllMessages")
-      // console.log('Reveived MEssage: ', message);
       for (key in clients) {
-        // console.log(key, "--------------key")
         // getMessages.forEach(element => { console.log(element.dataValues.msg, "!!!!!!!!!!!element.msg"); clients[key].send(element.dataValues.msg) });
         clients[key].send(message.utf8Data);
        }
     }
   })
+
+ // connection.on('')
 });
 
 module.exports = app;
