@@ -2,6 +2,7 @@ const { format } = require("morgan");
 const {
     User, Message, sequelize
 } = require("../models");
+const { all } = require("../routes");
 
 
 module.exports.getAllUsers = async function (req, res) {
@@ -13,30 +14,39 @@ module.exports.getAllUsers = async function (req, res) {
 }
 
 module.exports.getMessagedUsers = async function (req, res) {
-    const allMessagedUsers = await Message.findAll({
-        attributes:[[sequelize.fn('DISTINCT', sequelize.col('recipientId')), 'recipientId']],
-        where: {
-            senderId: req.body.senderId,
-        }
-    })
-    .catch(function (err) {
-        console.log("Promise Rejected", err);
-    });
-    console.log(allMessagedUsers, "=allMessagedUsers")
-    let necessaryUsers = [];
-    console.log("in getMessagedUsers")
-    console.log(req.body, "==req.body")
-    for(id of req.body.id){
-        console.log("in for")
-        let user = await User.findAll({
-            where: {
-                id: id
-            }
+    const allMessagedUsers = await sequelize.query(
+        `SELECT DISTINCT("recipientId"), "senderId","createdAt", LAST_VALUE("msg")
+        OVER(PARTITION BY "recipientId", "senderId"
+            ORDER BY "createdAt"
+            RANGE BETWEEN 
+            UNBOUNDED PRECEDING AND 
+            UNBOUNDED FOLLOWING) message
+        FROM "Messages"
+        WHERE "senderId" = ${req.body.senderId} OR "recipientId" = ${req.body.senderId};
+        `
+    )
+        .catch(function (err) {
+            console.log("Promise Rejected", err);
+        });
+    let allUserMessages = [];
+
+    for (i of allMessagedUsers[0]) {
+        let crossCompairing = allUserMessages.find((el) => {
+            if (el.recipientId === i.senderId && el.senderId === i.recipientId) return true;
+            return false
         })
-        console.log(user, "==user")
-       if(!necessaryUsers.includes(user)) necessaryUsers.push(user)
+        console.log(crossCompairing, "crossCompaiting")
+        if (crossCompairing) {
+            if (i.createdAt > crossCompairing.createdAt) {
+                const indexOf = allUserMessages.indexOf(crossCompairing)
+                allUserMessages.splice(indexOf, 1)
+                allUserMessages.push(i)
+                continue;
+            }
+            continue
+        }
+
+        if (!allUserMessages.includes(i)) allUserMessages.push(i)
     }
-    console.log(necessaryUsers, "===necessaryUsers")
-    for(i of necessaryUsers) console.log(i.username, "item in necessaryUsers")
-       return res.status(200).json(necessaryUsers)
+    console.log(allUserMessages, "allUserMessages")
 }
