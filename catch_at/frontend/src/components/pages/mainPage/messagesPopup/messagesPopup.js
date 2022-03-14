@@ -50,8 +50,7 @@ const MessagesPopup = (props) => {
 
     client.onopen();
     useEffect(() => {
-
-        console.log('IN USE EFFECT')
+        
         fetch("http://localhost:8000/api/messages", {
             method: 'POST',
             headers: {
