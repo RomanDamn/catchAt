@@ -1,9 +1,13 @@
 import s from "./mainPageMessages.module.css";
 import star from "../../../../assets/images/icons/star-5-128.png"
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import jwt_decode from "jwt-decode"
 
 const MainPageMessages = (props) => {
     const [messagedUsers, setMessagedUsers] = useState("");
+    const token = useSelector(state => state.tokenState.token)
+    const decodedToken = token ? jwt_decode(token) : ""
 
 
     useEffect(() => {
@@ -21,26 +25,40 @@ const MainPageMessages = (props) => {
     }, []);
     console.log(messagedUsers, "=messagedUsers")
     return (
-                <div className={s.mainblock}>
-                    <div  className={s.mainblock__el}>
-                        <div  className={s.mainblock__text}>KFC</div>
-                        <div  className={s.mainblock__message} onClick={() => props.setActive(true)}>Lets celebrate</div>
-                    </div>
-                    <div  className={s.mainblock__el}>
-                        <div  className={s.mainblock__text}>Weed Farm</div>
-                        <div  className={s.mainblock__message} onClick={() => props.setActive(true)}>
-                            <div className={s.mainblock__author}>You: </div>I believe I can fly
+        <div className={s.mainblock}>
+            {messagedUsers ? messagedUsers.map((el) => {
+                return (
+                    el.senderId === decodedToken.id ?
+                        <div className={s.mainblock__el}>
+                            <div className={s.mainblock__text}>{el.recipientName}</div>
+                            <div className={s.mainblock__message} onClick={() => props.setActive(true)}> You: {el.message}</div>
                         </div>
-                    </div>
-                     <div  className={s.mainblock__el}>
-                        <div  className={s.mainblock__text}>Homer</div>
-                        <div  className={s.mainblock__message} onClick={() => props.setActive(true)}>i belive I can touch the sky</div>
-                    </div>
-                    <div  className={s.mainblock__el}>
-                        <div  className={s.mainblock__text}>Eric</div>
-                        <div  className={s.mainblock__message} onClick={() => props.setActive(true)}>Spread the wings and fly away</div>
-                    </div>
+                        :
+                        <div className={s.mainblock__el}>
+                            <div className={s.mainblock__text}>{el.senderName}</div>
+                            <div className={s.mainblock__message} onClick={() => props.setActive(true)}>{el.message}</div>
+                        </div>
+                )
+            }) : ""}
+            {/* <div className={s.mainblock__el}>
+                <div className={s.mainblock__text}>KFC</div>
+                <div className={s.mainblock__message} onClick={() => props.setActive(true)}>Lets celebrate</div>
+            </div>
+            <div className={s.mainblock__el}>
+                <div className={s.mainblock__text}>Weed Farm</div>
+                <div className={s.mainblock__message} onClick={() => props.setActive(true)}>
+                    <div className={s.mainblock__author}>You: </div>I believe I can fly
                 </div>
+            </div>
+            <div className={s.mainblock__el}>
+                <div className={s.mainblock__text}>Homer</div>
+                <div className={s.mainblock__message} onClick={() => props.setActive(true)}>i belive I can touch the sky</div>
+            </div>
+            <div className={s.mainblock__el}>
+                <div className={s.mainblock__text}>Eric</div>
+                <div className={s.mainblock__message} onClick={() => props.setActive(true)}>Spread the wings and fly away</div>
+            </div> */}
+        </div>
     )
 }
 
