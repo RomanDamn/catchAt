@@ -21,7 +21,7 @@ const MainPageMessages = (props) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                senderId: 1
+                senderId: decodedToken.id
             })
         }).then(res => res.json()
         ).then(data => setMessagedUsers(data))
