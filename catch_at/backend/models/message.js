@@ -26,6 +26,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    hasRead:{ 
+      type: DataTypes.BOOLEAN
+    }
   }, {
     sequelize,
     modelName: 'Message',

@@ -31,7 +31,7 @@ module.exports.getMessagedUsers = async function (req, res) {
     let allUserMessages = [];
 
     for (i of allMessagedUsers[0]) {
-        let crossCompairing = allUserMessages.find((el) => {
+        const crossCompairing = allUserMessages.find((el) => {
             if (el.recipientId === i.senderId && el.senderId === i.recipientId) return true;
             return false
         })
@@ -43,7 +43,7 @@ module.exports.getMessagedUsers = async function (req, res) {
                 
                 const senderName = await User.findOne({where: {id: i.senderId}})
                 const recipientName = await User.findOne({where: {id: i.recipientId}})
-                allUserMessages.push({...i, senderName: senderName.username, recipientName: recipientName.username})
+                allUserMessages.push({...i, senderName: senderName.dataValues.username, recipientName: recipientName.dataValues.username})
                 continue;
             }
             continue
@@ -52,7 +52,7 @@ module.exports.getMessagedUsers = async function (req, res) {
         if (!allUserMessages.includes(i)){ 
             const senderName = await User.findOne({where: {id: i.senderId}})
             const recipientName = await User.findOne({where: {id: i.recipientId}})
-            allUserMessages.push({...i, senderName: senderName.username, recipientName: recipientName.username})
+            allUserMessages.push({...i, senderName: senderName.dataValues.username, recipientName: recipientName.dataValues.username})
         }
     }
     console.log(allUserMessages, "allUserMessages")

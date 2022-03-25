@@ -87,17 +87,27 @@ wsServer.on('request', function (request) {
   const connection = request.accept(null, request.origin)
   clients[userID] = connection;
   connection.on('message', async function (message) {
+    console.log(message, "WSMESSAGE")
 
     if (message.type === 'utf8') {
-      await messages.addMessage(message)
-      for (key in clients) {
+      const msg = JSON.parse(message.utf8Data);
+      console.log(msg, "msg in UTF8 if")
+      if (msg.type === "message"){
+        console.log("inMEssage In ws")
+        await messages.addMessage(msg)
+        for (key in clients) {
         // getMessages.forEach(element => { console.log(element.dataValues.msg, "!!!!!!!!!!!element.msg"); clients[key].send(element.dataValues.msg) });
-        clients[key].send(message.utf8Data);
-       }
+          clients[key].send(message.utf8Data);
+        }
+      }
+      if(msg.type ==="hasReadUpdate"){
+        console.log("inHasREdSOCKET")
+        await messages.hasReadUpdate(msg)
+      }
     }
   })
 
- // connection.on('')
+  // connection.on('')
 });
 
 module.exports = app;
