@@ -12,6 +12,9 @@ import { useDispatch, useSelector } from "react-redux";
 import isActiveButtonSlice, { makeActive } from "../../../reducers/isActiveButtonSlice";
 import MainPageMessages from "./mainPageMessages/mainPageMessages";
 import jwt_decode from "jwt-decode";
+import { w3cwebsocket } from "websocket";
+
+const client = new w3cwebsocket('ws://127.0.0.1:9000');
 
 const MainPage = () => {
     const [messagesBarActive, setMessagesBarActive] = useState(false);
@@ -19,7 +22,10 @@ const MainPage = () => {
     const dispatch = useDispatch();
     const isActiveButon = useSelector(state => state.isActiveState.isActive)
     const buttonId = useSelector(state => state.isActiveState.id)
-
+    client.onopen = () => {
+        console.log("WebSocket Client COnnected");
+    };
+    client.onopen();
     return (
         <BrowserRouter>
             <div className={s.page}>

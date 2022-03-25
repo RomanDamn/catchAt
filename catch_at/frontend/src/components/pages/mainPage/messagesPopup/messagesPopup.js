@@ -29,6 +29,7 @@ const MessagesPopup = (props) => {
         senderId: decodedToken.id,
         recipientId: props.recipientId,
     })
+
     const handleKeyDown = (event) => {
         if (event.key === 'Enter' && message) client.send(data);
     }
@@ -50,7 +51,7 @@ const MessagesPopup = (props) => {
 
     client.onopen();
     useEffect(() => {
-        
+
         fetch("http://localhost:8000/api/messages", {
             method: 'POST',
             headers: {
@@ -62,35 +63,46 @@ const MessagesPopup = (props) => {
             })
         }).then(res => res.json()
         ).then(data => setUserMessages(data))
-        
+
 
         fetch("http://localhost:8000/api/messages", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    senderId: props.recipientId,
-                    recipientId: decodedToken.id
-                })
-            }).then(res => res.json()
-            ).then(data => setRecipientMessages(data))
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                senderId: props.recipientId,
+                recipientId: decodedToken.id
+            })
+        }).then(res => res.json()
+        ).then(data => setRecipientMessages(data))
 
-            //scrollToBottom()
+        //scrollToBottom()
 
     }, []);
 
-    useEffect(() =>{
+    useEffect(() => {
         scrollToBottom()
-    },[allMessages])
-
-     let allMsg = userMessages.concat(recipientMessages)
-        allMsg.forEach(el => {
-            if(!allMessages.includes(el)) setAllMessages([...allMessages, el])
+        allMessages.forEach(el =>{
+            client.send(JSON.stringify(
+                {
+                    type: "hasReadUpdate",
+                    msg: el.msg,
+                    senderId: decodedToken.id,
+                    recipientId: el.recipientId,
+                }))
         })
-        allMsg = allMessages.sort(function(a,b){
-            return new Date(a.createdAt) - new Date(b.createdAt);})
-console.log(props, "props")
+        
+    }, [allMessages])
+
+    let allMsg = userMessages.concat(recipientMessages)
+    allMsg.forEach(el => {
+        if (!allMessages.includes(el)) setAllMessages([...allMessages, el])
+    })
+    allMsg = allMessages.sort(function (a, b) {
+        return new Date(a.createdAt) - new Date(b.createdAt);
+    })
+
     return (
         <div className={` ${s.content} ${props.active ? s.active : ""}`} >
             <div className={s.header}>

@@ -53,7 +53,7 @@ const AllUsers = (props) => {
             {users.map(el =>
                 <div className={s.mainblock__el} key={el.id}>
                     <div className={s.mainblock__text} onClick={() => {dispatch(makePopupActive(true)); setRecipientId(el.id); setRecipientName(el.username)}}>{el.username}</div>
-                    <div className={s.mainblock__messagesCount}>{el.id}</div>
+                    {/* <div className={s.mainblock__messagesCount}>{el.id}</div> */}
                     <div className={` ${s.mainblock__star} ${favorites.includes(el.id) ? "" : s.mainblock__star_active}`} onClick={() => {
                         {favorites.includes(el.id) ? deleteFromFavorites(1,el.id, state, updateState) : addToFavorites(1,el.id, state, updateState)}
                         }}></div>

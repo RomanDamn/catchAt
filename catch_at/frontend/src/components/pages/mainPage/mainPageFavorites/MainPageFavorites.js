@@ -44,7 +44,7 @@ const MainPageFavorites = () => {
             {favoriteUsers.map(el =>
                 <div className={s.mainblock__el}>
                     <div className={s.mainblock__text} onClick={() => {dispatch(makePopupActive(true)); setRecipientId(el.id); setRecipientName(el.username)}} >{el.username}</div>
-                    <div className={s.mainblock__messagesCount}>99</div>
+                    {/* <div className={s.mainblock__messagesCount}>99</div> */}
                     <div className={s.mainblock__star} onClick={() =>{
                          deleteFromFavorites(1, el.id, state, updateState)}}></div>
                 </div>
